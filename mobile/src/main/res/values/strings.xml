@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Splatoon 2 Rotations</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="menu_regular">Regular</string>
+    <string name="menu_ranked">Ranked</string>
+    <string name="menu_league">League</string>
+    <string name="menu_salmon">Salmon Run</string>
+    <string name="mode_turf">Turf War</string>
+    <string name="mode_clamblitz">Clam Blitz</string>
+    <string name="mode_rainmaker">Rainmaker</string>
+    <string name="mode_splatzones">Splatzones</string>
+    <string name="mode_tower_control">Tower Control</string>
+    <string name="menu_settings">Settings</string>
+    <string name="stage_0">The Reef</string>
+    <string name="stage_1">Musselforge Fitness</string>
+    <string name="stage_2">Starfish Mainstage</string>
+    <string name="stage_3">Sturgeon Shipyard</string>
+    <string name="stage_4">Inkblot Art Academy</string>
+    <string name="stage_5">Humpback Pump Track</string>
+    <string name="stage_6">Manta Maria</string>
+    <string name="stage_7">Port Mackerel</string>
+    <string name="stage_8">Moray Towers</string>
+    <string name="stage_9">Snapper Canal</string>
+    <string name="stage_10">Kelp Dome</string>
+    <string name="stage_11">Blackbelly Skatepark</string>
+    <string name="stage_12">Shellendorf Institute</string>
+    <string name="stage_13">MakoMart</string>
+    <string name="stage_14">Walleye Warehouse</string>
+    <string name="stage_15">Arowana Mall</string>
+    <string name="stage_16">Camp Triggerfish</string>
+    <string name="stage_17">Piranha Pit</string>
+    <string name="stage_18">Goby Arena</string>
+    <string name="stage_19">New Albacore Hotel</string>
+    <string name="stage_20">Wahoo World</string>
+    <string name="stage_21">Ancho-V Games</string>
+    <string name="stage_22">Skipper Pavilion</string>
+    <string name="stage_9999">Shifty Station</string>
+
+    <string name="battleScheduleURL">https://splatoon2.ink/data/schedules.json</string>
+    <string name="salmonScheduleURL">https://splatoon2.ink/data/coop-schedules.json</string>
+</resources>

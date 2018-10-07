@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_turf"
+        android:icon="@drawable/ic_turf_war_icon"
+        android:title="@string/menu_regular" />
+
+    <item
+        android:id="@+id/navigation_ranked"
+        android:icon="@drawable/ic_ranked_mode_icon"
+        android:title="@string/menu_ranked" />
+
+    <item
+        android:id="@+id/navigation_league"
+        android:icon="@drawable/ic_league_mode_icon"
+        android:title="@string/menu_league" />
+
+    <item
+        android:id="@+id/navigation_salmon"
+        android:icon="@drawable/ic_salmon_run_icon"
+        android:title="@string/menu_salmon"/>
+
+</menu>
