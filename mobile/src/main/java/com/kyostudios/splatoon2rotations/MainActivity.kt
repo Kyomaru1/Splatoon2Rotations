@@ -3,6 +3,7 @@ package com.kyostudios.splatoon2rotations
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
@@ -23,35 +24,53 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navigation_turf -> {
                 val fragment = FragmentTurf()
-                addFragment(fragment)
+                addFragment(fragment, "turf")
+                clearBackstack(arrayOf("ranked", "league", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_ranked -> {
                 val fragment = FragmentRanked()
-                addFragment(fragment)
+                addFragment(fragment, "ranked")
+                clearBackstack(arrayOf("turf", "league", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_league -> {
                 val fragment = FragmentLeague()
-                addFragment(fragment)
+                addFragment(fragment, "league")
+                clearBackstack(arrayOf("turf", "ranked", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_salmon->{
                 val fragment = FragmentSalmon()
-                addFragment(fragment)
+                addFragment(fragment, "salmon")
+                clearBackstack(arrayOf("turf", "ranked", "league"))
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
 
-    private fun addFragment(fragment: Fragment){
-        supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                .replace(R.id.frame, fragment, fragment.javaClass.simpleName)
-                .addToBackStack(fragment.javaClass.simpleName)
-                .commit()
+    private fun addFragment(fragment: Fragment, fragmentTag: String){
+        if(supportFragmentManager.findFragmentByTag(fragmentTag) == null) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
+                    .add(R.id.frame, fragment, fragmentTag)
+                    .commit()
+        }
+        else{
+            supportFragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
+                    .show((supportFragmentManager.findFragmentByTag(fragmentTag)) as Fragment)
+                    .commit()
+        }
+    }
+
+    private fun clearBackstack(tags: Array<String>){
+        for(i in tags){
+            supportFragmentManager.popBackStack(i, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
     }
 
 
@@ -62,7 +81,6 @@ class MainActivity : AppCompatActivity() {
 
         val queue : RequestQueue? = Volley.newRequestQueue(this)
         val url = getString(R.string.battleScheduleURL)
-        var data : String
         val leagueData : MutableList<JSONObject> = ArrayList()
         val rankedData : MutableList<JSONObject> = ArrayList()
         val regularData : MutableList<JSONObject> = ArrayList()
@@ -84,6 +102,13 @@ class MainActivity : AppCompatActivity() {
                         for(i in 0 until array.length()){
                             regularData.add(array.getJSONObject(i))
                         }
+
+                        var content = findViewById<FrameLayout>(R.id.frame)
+                        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+                        val fragment = FragmentTurf.newInstance(regularData)
+                        addFragment(fragment, "turf")
+
                     }catch(e:JSONException){
                         e.printStackTrace()
                     }
@@ -91,20 +116,32 @@ class MainActivity : AppCompatActivity() {
                 Response.ErrorListener { throw Exception() })
 
         queue?.add(stringRequest)
-
-
-        var content = findViewById<FrameLayout>(R.id.frame)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        val fragment = FragmentTurf.newInstance(regularData)
-        addFragment(fragment)
-
-
-
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
+        when {
+            supportFragmentManager.findFragmentByTag("turf") != null -> {
+                supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag("turf") as Fragment)
+                        .commit()
+            }
+            supportFragmentManager.findFragmentByTag("ranked") != null -> {
+                supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag("ranked") as Fragment)
+                        .commit()
+            }
+            supportFragmentManager.findFragmentByTag("league") != null -> {
+                supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag("league") as Fragment)
+                        .commit()
+            }
+            supportFragmentManager.findFragmentByTag("salmon") != null -> {
+                supportFragmentManager.beginTransaction()
+                        .remove(supportFragmentManager.findFragmentByTag("salmon") as Fragment)
+                        .commit()
+            }
+        }
 
     }
 }
