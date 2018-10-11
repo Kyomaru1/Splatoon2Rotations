@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
 import com.android.volley.Request
@@ -12,36 +11,38 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.google.android.gms.common.internal.ImagesContract.URL
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
+    private val leagueData : MutableList<JSONObject> = ArrayList()
+    private val rankedData : MutableList<JSONObject> = ArrayList()
+    private val regularData : MutableList<JSONObject> = ArrayList()
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_turf -> {
-                val fragment = FragmentTurf()
+                val fragment = FragmentRotation.newInstance(regularData, "Turf War")
                 addFragment(fragment, "turf")
                 clearBackstack(arrayOf("ranked", "league", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_ranked -> {
-                val fragment = FragmentRanked()
+                val fragment = FragmentRotation.newInstance(rankedData, "Ranked")
                 addFragment(fragment, "ranked")
                 clearBackstack(arrayOf("turf", "league", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_league -> {
-                val fragment = FragmentLeague()
+                val fragment = FragmentRotation.newInstance(leagueData, "League")
                 addFragment(fragment, "league")
                 clearBackstack(arrayOf("turf", "ranked", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_salmon->{
-                val fragment = FragmentSalmon()
+                val fragment = FragmentRotation.newInstance(ArrayList(), "")
                 addFragment(fragment, "salmon")
                 clearBackstack(arrayOf("turf", "ranked", "league"))
                 return@OnNavigationItemSelectedListener true
@@ -81,9 +82,7 @@ class MainActivity : AppCompatActivity() {
 
         val queue : RequestQueue? = Volley.newRequestQueue(this)
         val url = getString(R.string.battleScheduleURL)
-        val leagueData : MutableList<JSONObject> = ArrayList()
-        val rankedData : MutableList<JSONObject> = ArrayList()
-        val regularData : MutableList<JSONObject> = ArrayList()
+
         val stringRequest = StringRequest(Request.Method.GET, url,
                 Response.Listener<String>{
                     response ->
@@ -106,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                         var content = findViewById<FrameLayout>(R.id.frame)
                         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-                        val fragment = FragmentTurf.newInstance(regularData)
+                        val fragment = FragmentRotation.newInstance(regularData, "Turf War")
                         addFragment(fragment, "turf")
 
                     }catch(e:JSONException){

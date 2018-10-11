@@ -23,23 +23,22 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/cardToTimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="@+id/cardFromTimeText"
                     tools:text="10 PM" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/cardFromTimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="Now"
                     app:layout_constraintEnd_toStartOf="@+id/textView6"
-                    app:layout_constraintTop_toTopOf="@+id/textView" />
+                    app:layout_constraintTop_toTopOf="@+id/cardGameMode"
+                    tools:text="Now" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -47,20 +46,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="-"
-                    app:layout_constraintEnd_toStartOf="@+id/textView4"
-                    app:layout_constraintTop_toTopOf="@+id/textView5" />
+                    app:layout_constraintEnd_toStartOf="@+id/cardToTimeText"
+                    app:layout_constraintTop_toTopOf="@+id/cardFromTimeText" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/cardGameMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="@string/mode_turf"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/mode_turf" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
@@ -70,11 +69,12 @@
                     android:layout_marginTop="36dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
+                    android:baselineAligned="true"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+                    app:layout_constraintTop_toBottomOf="@+id/cardGameMode">
 
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="0dp"
@@ -82,28 +82,29 @@
                         android:layout_weight=".5">
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/mapAImage"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:cropToPadding="false"
                             android:scaleType="centerCrop"
                             app:layout_constraintEnd_toEndOf="parent"
-                            tools:srcCompat="@drawable/arowana_mall" />
+                            tools:srcCompat="@drawable/stage_15" />
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/mapAText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:alpha=".65"
                             android:background="@android:color/black"
-                            android:paddingLeft="8dp"
+                            android:paddingStart="8dp"
                             android:paddingTop="4dp"
+                            android:paddingEnd="0dp"
                             android:paddingBottom="4dp"
-                            android:text="TextView"
                             android:textColor="@android:color/background_light"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/imageView2" />
+                            app:layout_constraintStart_toStartOf="@+id/mapAImage"
+                            tools:text="@string/stage_15" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -112,29 +113,30 @@
                         android:layout_weight=".5">
 
                         <ImageView
-                            android:id="@+id/imageView"
+                            android:id="@+id/mapBImage"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight=".5"
                             android:cropToPadding="true"
                             android:scaleType="centerCrop"
                             app:layout_constraintStart_toStartOf="parent"
-                            tools:srcCompat="@drawable/goby_arena" />
+                            tools:srcCompat="@drawable/stage_18" />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/mapBText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:alpha=".65"
                             android:background="@color/common_google_signin_btn_text_dark_focused"
-                            android:paddingLeft="8dp"
+                            android:paddingStart="8dp"
                             android:paddingTop="4dp"
+                            android:paddingEnd="0dp"
                             android:paddingBottom="4dp"
-                            android:text="TextView"
                             android:textColor="@android:color/background_light"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/imageView" />
+                            app:layout_constraintStart_toStartOf="@+id/mapBImage"
+                            tools:text="@string/stage_18" />
                     </android.support.constraint.ConstraintLayout>
 
                 </LinearLayout>

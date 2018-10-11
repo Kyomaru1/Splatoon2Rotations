@@ -25,23 +25,23 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/cardToTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/cardFromTimeText"
                 tools:text="10 PM" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/cardFromTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="Now"
                 app:layout_constraintEnd_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+                app:layout_constraintTop_toTopOf="@+id/cardGameMode" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -49,11 +49,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="-"
-                app:layout_constraintEnd_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="@+id/textView5" />
+                app:layout_constraintEnd_toStartOf="@+id/cardToTimeText"
+                app:layout_constraintTop_toTopOf="@+id/cardFromTimeText" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/cardGameMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -76,7 +76,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView">
+                app:layout_constraintTop_toBottomOf="@+id/cardGameMode">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="0dp"
@@ -84,13 +84,13 @@
                     android:layout_weight=".5">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/mapAImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:cropToPadding="false"
                         android:scaleType="centerCrop"
                         app:layout_constraintEnd_toEndOf="parent"
-                        tools:srcCompat="@drawable/arowana_mall" />
+                        tools:srcCompat="@drawable/stage_15" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -105,7 +105,7 @@
                         android:textColor="@android:color/background_light"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/imageView2" />
+                        app:layout_constraintStart_toStartOf="@+id/mapAImage" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -114,14 +114,14 @@
                     android:layout_weight=".5">
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/mapBImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:cropToPadding="true"
                         android:scaleType="centerCrop"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:srcCompat="@drawable/goby_arena" />
+                        tools:srcCompat="@drawable/stage_18" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -136,7 +136,7 @@
                         android:textColor="@android:color/background_light"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/imageView" />
+                        app:layout_constraintStart_toStartOf="@+id/mapBImage" />
                 </android.support.constraint.ConstraintLayout>
 
             </LinearLayout>
