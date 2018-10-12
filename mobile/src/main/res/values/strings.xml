@@ -38,6 +38,11 @@
     <string name="stage_22">Skipper Pavilion</string>
     <string name="stage_9999">Shifty Station</string>
 
+    <string name="current_stages">Current Stages</string>
+    <string name="now">Now</string>
+
     <string name="battleScheduleURL">https://splatoon2.ink/data/schedules.json</string>
     <string name="salmonScheduleURL">https://splatoon2.ink/data/coop-schedules.json</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
