@@ -1,5 +1,6 @@
 package com.kyostudios.splatoon2rotations
 
+import org.json.JSONObject
 import java.util.*
 
 class RotationCard(){
@@ -75,9 +76,9 @@ class RotationCard(){
                 9999 -> {card.mapBTitle = R.string.stage_9999.toString(); card.mapBImageID = R.drawable.stage_9999}
             }
 
-            card.startHour = startTime.get(Calendar.HOUR)
-            card.endHour = endTime.get(Calendar.HOUR)
-            card.gameRule = gameRule
+            card.startHour = startTime.get(Calendar.HOUR_OF_DAY)
+            card.endHour = endTime.get(Calendar.HOUR_OF_DAY)
+            card.gameRule = JSONObject(gameRule)["name"] as String
 
             return card
         }
