@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#9ccc65</color>
+    <color name="colorPrimaryDark">#689f38</color>
+    <color name="colorAccent">#fa4470</color>
     <color name="colorTurfWar">#cff622</color>
     <color name="colorRanked">#f54910</color>
     <color name="colorLeague">#f02d7d</color>

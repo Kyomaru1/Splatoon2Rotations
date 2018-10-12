@@ -1,10 +1,12 @@
 package com.kyostudios.splatoon2rotations
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.FrameLayout
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -23,28 +25,28 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_turf -> {
+            R.id.navigation_turf -> if(item.itemId != navigation.selectedItemId) {
                 val fragment = FragmentRotation.newInstance(regularData, "Turf War")
                 addFragment(fragment, "turf")
                 clearBackstack(arrayOf("ranked", "league", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_ranked -> {
+            R.id.navigation_ranked -> if(item.itemId != navigation.selectedItemId) {
                 val fragment = FragmentRotation.newInstance(rankedData, "Ranked")
                 addFragment(fragment, "ranked")
-                clearBackstack(arrayOf("turf", "league", "salmon"))
+                clearBackstack(arrayOf("league", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_league -> {
+            R.id.navigation_league -> if(item.itemId != navigation.selectedItemId) {
                 val fragment = FragmentRotation.newInstance(leagueData, "League")
                 addFragment(fragment, "league")
-                clearBackstack(arrayOf("turf", "ranked", "salmon"))
+                clearBackstack(arrayOf("ranked", "salmon"))
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_salmon->{
+            R.id.navigation_salmon-> if(item.itemId != navigation.selectedItemId) {
                 val fragment = FragmentRotation.newInstance(ArrayList(), "")
                 addFragment(fragment, "salmon")
-                clearBackstack(arrayOf("turf", "ranked", "league"))
+                clearBackstack(arrayOf("ranked", "league"))
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -56,7 +58,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
                     .beginTransaction()
                     .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                    .add(R.id.frame, fragment, fragmentTag)
+                    .replace(R.id.frame, fragment, fragmentTag)
+                    .addToBackStack(fragmentTag)
                     .commit()
         }
         else{
@@ -66,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                     .show((supportFragmentManager.findFragmentByTag(fragmentTag)) as Fragment)
                     .commit()
         }
+        progressBar.setVisibility(View.GONE)
     }
 
     private fun clearBackstack(tags: Array<String>){
@@ -115,6 +119,16 @@ class MainActivity : AppCompatActivity() {
                 Response.ErrorListener { throw Exception() })
 
         queue?.add(stringRequest)
+    }
+
+    override fun onBackPressed() {
+        var bottomNavigationView: BottomNavigationView = findViewById(R.id.navigation)
+        var selectedItem: Int = bottomNavigationView.selectedItemId
+        if(selectedItem != R.id.navigation_turf)
+            navigation.selectedItemId = R.id.navigation_turf
+        else
+            System.exit(0)
+
     }
 
     override fun onDestroy() {

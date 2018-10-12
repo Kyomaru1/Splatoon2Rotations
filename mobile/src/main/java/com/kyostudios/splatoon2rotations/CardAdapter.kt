@@ -1,7 +1,10 @@
 package com.kyostudios.splatoon2rotations
+import android.content.res.Resources
+import android.support.constraint.ConstraintLayout
 import android.support.v4.widget.ImageViewCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +24,7 @@ class CardAdapter(private val myDataset: ArrayList<Rotation>): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        var res: Resources = holder.itemView.context.resources
         val rotationCard =
                 RotationCard.newInstance(
                         myDataset[position].gameRule,
@@ -29,7 +33,8 @@ class CardAdapter(private val myDataset: ArrayList<Rotation>): RecyclerView.Adap
                         myDataset[position].startTime,
                         myDataset[position].endTime,
                         myDataset[position].isCurrent,
-                        myDataset[position].isSplatfest
+                        myDataset[position].isSplatfest,
+                        res
                 )
 
         holder.mapATitle.text = rotationCard.mapATitle
@@ -39,25 +44,21 @@ class CardAdapter(private val myDataset: ArrayList<Rotation>): RecyclerView.Adap
 
         var cal: Calendar = Calendar.getInstance()
         var currentHour: Int = cal.get(Calendar.HOUR_OF_DAY)
-        if(rotationCard.startHour == currentHour)
-            holder.fromTime.text = "Now "
-        else if(rotationCard.startHour > 12)
-            holder.fromTime.text = (rotationCard.startHour - 12).toString() + " PM "
-        else if(rotationCard.startHour == 0)
-            holder.fromTime.text = "12 AM "
-        else if(rotationCard.startHour == 12)
-            holder.fromTime.text = "12 PM "
-        else
-            holder.fromTime.text = rotationCard.startHour.toString() + " AM "
 
-        if(rotationCard.endHour > 12)
-            holder.toTime.text = " " + (rotationCard.endHour - 12).toString() + " PM"
-        else if(rotationCard.endHour == 0)
-            holder.toTime.text = " 12 AM"
-        else if(rotationCard.endHour == 12)
-            holder.toTime.text = " 12 PM"
-        else
-            holder.toTime.text = " " + rotationCard.endHour.toString() + " AM"
+        when {
+            rotationCard.iscurrent == true -> holder.fromTime.text = "Now "
+            rotationCard.startHour > 12 -> holder.fromTime.text = (rotationCard.startHour - 12).toString() + " PM "
+            rotationCard.startHour == 0 -> holder.fromTime.text = "12 AM "
+            rotationCard.startHour == 12 -> holder.fromTime.text = "12 PM "
+            else -> holder.fromTime.text = rotationCard.startHour.toString() + " AM "
+        }
+
+        when {
+            rotationCard.endHour > 12 -> holder.toTime.text = " " + (rotationCard.endHour - 12).toString() + " PM"
+            rotationCard.endHour == 0 -> holder.toTime.text = " 12 AM"
+            rotationCard.endHour == 12 -> holder.toTime.text = " 12 PM"
+            else -> holder.toTime.text = " " + rotationCard.endHour.toString() + " AM"
+        }
 
         holder.title.text = rotationCard.gameRule
     }
@@ -74,4 +75,5 @@ class MyViewHolder(cardView: View): RecyclerView.ViewHolder(cardView) {
     val mapBTitle: TextView = cardView.mapBText
     val mapAImage: ImageView = cardView.mapAImage
     val mapBImage: ImageView = cardView.mapBImage
+    val rotationCard: CardView = cardView.rotation_card
 }

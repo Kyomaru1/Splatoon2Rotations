@@ -41,10 +41,10 @@ class FragmentRotation : Fragment() {
             val mapA = SplatMap(((rotationdata[i]["stage_a"] as JSONObject).get("id") as String).toInt())
             val mapB = SplatMap(((rotationdata[i]["stage_b"] as JSONObject).get("id") as String).toInt())
             if(currentTime in startTime..endTime){
-                splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["game_mode"].toString(), isCurrent = true))
+                splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["rule"].toString(), isCurrent = true))
             }
             else{
-                splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["game_mode"].toString()))
+                splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["rule"].toString()))
             }
         }
 

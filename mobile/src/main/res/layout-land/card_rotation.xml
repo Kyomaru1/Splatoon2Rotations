@@ -10,6 +10,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/rotation_card"
             android:layout_width="350dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
