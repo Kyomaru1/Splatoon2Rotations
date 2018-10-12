@@ -8,7 +8,7 @@ import android.widget.RemoteViews
 /**
  * Implementation of App Widget functionality.
  */
-class CurrentRotations : AppWidgetProvider() {
+class CurrentRotationsWidget : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         // There may be multiple widgets active, so update all of them
@@ -32,7 +32,7 @@ class CurrentRotations : AppWidgetProvider() {
 
 
             // Construct the RemoteViews object
-            val views = RemoteViews(context.packageName, R.layout.current_rotations)
+            val views = RemoteViews(context.packageName, R.layout.current_rotations_widget)
 
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views)
