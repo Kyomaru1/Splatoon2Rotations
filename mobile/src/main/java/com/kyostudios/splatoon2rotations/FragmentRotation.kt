@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.kyostudios.splatoon2rotation.Rotation
 import kotlinx.android.synthetic.main.fragment_rotation.*
 import kotlinx.android.synthetic.main.fragment_rotation.view.*
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,20 +32,37 @@ class FragmentRotation : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        for (i in 0 until rotationdata.size){
-            val startTime = Calendar.getInstance()
-            val endTime = Calendar.getInstance()
-            val currentTime = Calendar.getInstance()
-            startTime.time = Date((rotationdata[i]["start_time"] as Int).toLong() * 1000)
-            endTime.time = Date((rotationdata[i]["end_time"] as Int).toLong() * 1000)
-            val mapA = SplatMap(((rotationdata[i]["stage_a"] as JSONObject).get("id") as String).toInt())
-            val mapB = SplatMap(((rotationdata[i]["stage_b"] as JSONObject).get("id") as String).toInt())
-            if(currentTime in startTime..endTime){
-                splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["rule"].toString(), isCurrent = true))
+        if(savedInstanceState == null) {
+            for (i in 0 until rotationdata.size) {
+                val startTime = Calendar.getInstance()
+                val endTime = Calendar.getInstance()
+                val currentTime = Calendar.getInstance()
+                startTime.time = Date((rotationdata[i]["start_time"] as Int).toLong() * 1000)
+                endTime.time = Date((rotationdata[i]["end_time"] as Int).toLong() * 1000)
+                val mapA = SplatMap(((rotationdata[i]["stage_a"] as JSONObject).get("id") as String).toInt())
+                val mapB = SplatMap(((rotationdata[i]["stage_b"] as JSONObject).get("id") as String).toInt())
+                if (currentTime in startTime..endTime) {
+                    splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["game_mode"].toString(), isCurrent = true))
+                } else {
+                    splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["game_mode"].toString()))
+                }
             }
-            else{
-                splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["rule"].toString()))
+        }
+        else{
+            rotationdata = JSONArray(savedInstanceState.getString("FragmentData")) as ArrayList<JSONObject>
+            for (i in 0 until rotationdata.size) {
+                val startTime = Calendar.getInstance()
+                val endTime = Calendar.getInstance()
+                val currentTime = Calendar.getInstance()
+                startTime.time = Date((rotationdata[i]["start_time"] as Int).toLong() * 1000)
+                endTime.time = Date((rotationdata[i]["end_time"] as Int).toLong() * 1000)
+                val mapA = SplatMap(((rotationdata[i]["stage_a"] as JSONObject).get("id") as String).toInt())
+                val mapB = SplatMap(((rotationdata[i]["stage_b"] as JSONObject).get("id") as String).toInt())
+                if (currentTime in startTime..endTime) {
+                    splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["game_mode"].toString(), isCurrent = true))
+                } else {
+                    splatMapRotations.add(Rotation(mapA, mapB, startTime, endTime, rotationdata[i]["game_mode"].toString()))
+                }
             }
         }
 
@@ -57,6 +75,17 @@ class FragmentRotation : Fragment() {
         rootView.rotation_recycler.layoutManager = LinearLayoutManager(this.context)
         rootView.rotation_recycler.adapter = CardAdapter(splatMapRotations as ArrayList<Rotation>)
         return rootView
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        var dataAsJson: JSONArray = JSONArray(splatMapRotations)
+        outState.putString("FragmentData", dataAsJson.toString())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
